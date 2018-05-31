@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VisualSorting.UserInterface"
+             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -11,11 +12,15 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
-
+        <wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None">
+            <wpf:CartesianChart.AxisX>
+                <wpf:Axis LabelFormatter="{x:Null}" />
+            </wpf:CartesianChart.AxisX>
+        </wpf:CartesianChart>
         <StackPanel Grid.Column="1">
             <ComboBox />
-            <Button Style="{StaticResource BaseButtonStyle}" Content="Zufallszahlen" />
-            <Button Style="{StaticResource BaseButtonStyle}" Content="Sortieren" />
+            <Button Style="{StaticResource BaseButtonStyle}" Content="Zufallszahlen" Command="{Binding Randomize}"/>
+            <Button Style="{StaticResource BaseButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
         </StackPanel>
     </Grid>
 </UserControl>
