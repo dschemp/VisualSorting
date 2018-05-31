@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace VisualSorting.UserInterface
 {
-    public class UserInterfaceViewModel
+    public class UserInterfaceViewModel : ViewModelBase
     {
         public SeriesCollection SeriesCollection { get; set; }
 
@@ -27,6 +28,9 @@ namespace VisualSorting.UserInterface
             };
 
             SeriesCollection[0].Values = new ChartValues<int> { 1, 2 };
+
+            Sort = CreateCommand(_ => MessageBox.Show("Sort-Test"));
+            Randomize = CreateCommand(_ => MessageBox.Show("Randomize-Test"));
         }
     }
 }
