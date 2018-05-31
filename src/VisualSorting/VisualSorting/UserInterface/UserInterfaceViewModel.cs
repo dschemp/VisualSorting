@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using VisualSorting.SortingAlgorithms;
 
 namespace VisualSorting.UserInterface
 {
@@ -14,11 +15,18 @@ namespace VisualSorting.UserInterface
     {
         public SeriesCollection SeriesCollection { get; set; }
 
+        public List<SortingBase> PossibleSortingAlgorithm { get; set; }
+
         public ICommand Sort { get; set; }
         public ICommand Randomize { get; set; }
 
         public UserInterfaceViewModel()
         {
+            PossibleSortingAlgorithm = new List<SortingBase>()
+            {
+                new BubbleSort(null)
+            };
+
             SeriesCollection = new SeriesCollection()
             {
                 new ColumnSeries()

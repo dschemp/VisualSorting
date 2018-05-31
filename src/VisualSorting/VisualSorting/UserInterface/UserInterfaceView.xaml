@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="Auto" MinWidth="200" />
         </Grid.ColumnDefinitions>
         <wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None">
             <wpf:CartesianChart.AxisX>
@@ -18,7 +18,7 @@
             </wpf:CartesianChart.AxisX>
         </wpf:CartesianChart>
         <StackPanel Grid.Column="1">
-            <ComboBox />
+            <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}"/>
             <Button Style="{StaticResource BaseButtonStyle}" Content="Zufallszahlen" Command="{Binding Randomize}"/>
             <Button Style="{StaticResource BaseButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
         </StackPanel>

@@ -60,6 +60,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SortingAlgorithms\BubbleSort.cs" />
+    <Compile Include="SortingAlgorithms\SortingBase.cs" />
     <Compile Include="UserInterface\UserInterfaceView.xaml.cs">
       <DependentUpon>UserInterfaceView.xaml</DependentUpon>
     </Compile>
