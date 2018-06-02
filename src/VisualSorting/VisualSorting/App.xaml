@@ -4,11 +4,10 @@
              xmlns:local="clr-namespace:VisualSorting"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="BaseButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="5" />            
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Padding" Value="5" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ModernChrome;component/Themes/Dark.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
