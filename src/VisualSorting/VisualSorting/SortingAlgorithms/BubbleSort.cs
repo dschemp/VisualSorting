@@ -22,7 +22,7 @@ namespace VisualSorting.SortingAlgorithms
                         SelectedItemIndex = new Tuple<int, int>(y, y + 1);
                         NumberArray = Swap.SwapItem(NumberArray, y, y + 1);
                         RaiseNumbersUpdatedEvent();
-                        //Sleep(50);
+                        Sleep(50);
                     }
                 }
             }

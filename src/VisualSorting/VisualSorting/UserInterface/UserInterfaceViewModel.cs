@@ -42,8 +42,8 @@ namespace VisualSorting.UserInterface
             };
             GenerateRandomNumbers();
 
-            //Sort = CreateCommand(_ => BubbleSort());
-            Sort = CreateCommand(_ => StartSorting());
+            Sort = CreateCommand(_ => BubbleSort());
+            //Sort = CreateCommand(_ => StartSorting());
             Randomize = CreateCommand(_ => GenerateRandomNumbers());
             RandomizeAsc = CreateCommand(_ => GenerateNumbersAsc());
             RandomizeDesc = CreateCommand(_ => GenerateNumbersDesc());
@@ -124,7 +124,6 @@ namespace VisualSorting.UserInterface
                     {
                         Numbers = Swap.SwapItem(Numbers, y, y + 1);
                         UpdateGraph(Numbers);
-                        Thread.Sleep(100);
                     }
                 }
             }
