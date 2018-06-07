@@ -11,9 +11,21 @@ namespace VisualSorting.SortingAlgorithms
         public BubbleSort(IEnumerable<int> numbers) : base(numbers)
         { }
 
-        public override void Sort()
+        protected override void SortTask()
         {
-            throw new NotImplementedException();
+            for (int x = NumberArray.Count(); x > 1; x--)
+            {
+                for (int y = 0; y < NumberArray.Count() - 1; y++)
+                {
+                    if (NumberArray.ElementAt(y).CompareTo(NumberArray.ElementAt(y + 1)) > 0)
+                    {
+                        SelectedItemIndex = new Tuple<int, int>(y, y + 1);
+                        NumberArray = Swap.SwapItem(NumberArray, y, y + 1);
+                        RaiseNumbersUpdatedEvent();
+                        //Sleep(50);
+                    }
+                }
+            }
         }
     }
 }

@@ -176,7 +176,7 @@ namespace VisualSorting.UserInterface
                     {
                         this.execute(parameter);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
                 });

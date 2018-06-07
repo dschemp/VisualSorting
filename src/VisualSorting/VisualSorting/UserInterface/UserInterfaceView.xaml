@@ -18,12 +18,12 @@
             </wpf:CartesianChart.AxisX>
         </wpf:CartesianChart>
         <StackPanel Grid.Column="1">
-            <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedIndex="0"/>
+            <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0"/>
             <GroupBox Margin="5" Header="Zahlen">
                 <StackPanel Orientation="Vertical">
-                    <Button Margin="5" Content="Zufallszahlen" Command="{Binding Randomize}"/>
-                    <Button Margin="5" Content="Zufallszahlen aufsteigend" Command="{Binding RandomizeAsc}"/>
-                    <Button Margin="5" Content="Zufallszahlen absteigend" Command="{Binding RandomizeDesc}"/>
+                    <Button Margin="5" Content="Zufällig" Command="{Binding Randomize}"/>
+                    <Button Margin="5" Content="Aufsteigend" Command="{Binding RandomizeAsc}"/>
+                    <Button Margin="5" Content="Absteigend" Command="{Binding RandomizeDesc}"/>
                 </StackPanel>
             </GroupBox>
             <Button Margin="5" Content="Sortieren" Command="{Binding Sort}"/>
