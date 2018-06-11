@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using VisualSorting.SortingAlgorithms;
 
 namespace VisualSorting.UserInterface
@@ -22,6 +23,13 @@ namespace VisualSorting.UserInterface
 
         public SortingBase SelectedSorting { get; set; }
 
+        private bool working;
+        public bool Working
+        {
+            get { return !working; }
+            set { if (value != working) working = value; OnPropertyChanged(); }
+        }
+
         public ICommand Sort { get; set; }
         public ICommand Randomize { get; set; }
         public ICommand RandomizeAsc { get; set; }
@@ -35,14 +43,15 @@ namespace VisualSorting.UserInterface
 
         public UserInterfaceViewModel()
         {
-            FuncRandomNumbers = x => random.Next(1, 51);
+            FuncRandomNumbers = _ => random.Next(1, 51);
             FuncAscNumbers = x => x;
             FuncDescNumbers = x => 31 - x;
 
             PossibleSortingAlgorithm = new List<SortingBase>()
             {
                 new BubbleSort(null),
-                new SelectionSort(null)
+                new SelectionSort(null),
+                new InsertionSort(null)
             };
 
             SeriesCollection = new SeriesCollection()
@@ -65,12 +74,34 @@ namespace VisualSorting.UserInterface
                 sorter = new BubbleSort(Numbers);
             else if (SelectedSorting is SelectionSort)
                 sorter = new SelectionSort(Numbers);
-            //else if (SelectedSorting is InsertionSort)
-            //    sorter = new InsertionSort(Numbers);
+            else if (SelectedSorting is InsertionSort)
+                sorter = new InsertionSort(Numbers);
             // ...
 
             if (sorter != null)
                 SortBy(sorter);
+        }
+
+        private void SortBy(SortingBase selectedSorting)
+        {
+            // Set bottom text to timer / text "Sorting..." / border brush
+
+            selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
+
+            Working = true;
+            selectedSorting.Sort();
+            Working = false;
+
+            //Task.Factory.StartNew(() =>
+            //{
+            //    selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
+
+            //    Working = true;
+            //    selectedSorting.Sort();
+            //    Working = false;
+            //});
+
+            // Set bottom text to end of timer / text "Done." / border brush
         }
 
         private void UpdateGraph(IEnumerable<int> numbers)
@@ -79,17 +110,6 @@ namespace VisualSorting.UserInterface
             foreach (int i in numbers)
                 SeriesCollection[0].Values.Add(i);
             this.Numbers = numbers;
-        }
-
-        private void SortBy(SortingBase selectedSorting)
-        {
-            // Set bottom text to timer / text "Sorting..."
-
-            selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
-
-            selectedSorting.Sort();
-
-            // Set bottom text to end of timer / text "Done."
         }
 
         private void GenerateNumbers(Func<int, int> func)

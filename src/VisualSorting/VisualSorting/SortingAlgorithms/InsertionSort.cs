@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace VisualSorting.SortingAlgorithms
 {
-    public class BubbleSort : SortingBase
+    public class InsertionSort : SortingBase
     {
-        public BubbleSort(IEnumerable<int> numbers) : base(numbers)
+        public InsertionSort(IEnumerable<int> numbers) : base(numbers)
         { }
 
         public override async void Sort()
         {
-            for (int x = NumberArray.Count(); x > 1; x--)
+            for (int x = 1; x < NumberArray.Count(); x++)
             {
-                for (int y = 0; y < NumberArray.Count() - 1; y++)
+                for (int y = x; y > 0; y--)
                 {
-                    if (NumberArray.ElementAt(y).CompareTo(NumberArray.ElementAt(y + 1)) > 0)
+                    if (NumberArray.ElementAt(y - 1).CompareTo(NumberArray.ElementAt(y)) > 0)
                     {
-                        SelectedItemIndex = new Tuple<int, int>(y, y + 1);
-                        NumberArray = Swap.SwapItem(NumberArray, y, y + 1);
+                        NumberArray = Swap.SwapItem(NumberArray, y, y - 1);
                         TriggerNumbersUpdatedEvent();
                     }
                     await Sleep().ConfigureAwait(false);
@@ -30,7 +29,7 @@ namespace VisualSorting.SortingAlgorithms
 
         public override string ToString()
         {
-            return "Bubblesort";
+            return "Insertionsort";
         }
     }
 }

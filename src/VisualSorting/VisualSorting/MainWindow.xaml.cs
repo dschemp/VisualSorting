@@ -25,7 +25,9 @@ namespace VisualSorting
         public MainWindow()
         {
             InitializeComponent();
-            GridUserControlLayout.Children.Add(new UserInterfaceView(new UserInterfaceViewModel()));
+
+            var view = new UserInterfaceView(new UserInterfaceViewModel());
+            GridUserControlLayout.Children.Add(view);
         }
     }
 }

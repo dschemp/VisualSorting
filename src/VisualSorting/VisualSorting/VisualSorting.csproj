@@ -76,6 +76,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="SortingAlgorithms\BubbleSort.cs" />
+    <Compile Include="SortingAlgorithms\InsertionSort.cs" />
     <Compile Include="SortingAlgorithms\SelectionSort.cs" />
     <Compile Include="SortingAlgorithms\SortingBase.cs" />
     <Compile Include="SortingAlgorithms\Swap.cs" />

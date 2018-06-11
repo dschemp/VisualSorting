@@ -9,10 +9,9 @@ namespace VisualSorting.SortingAlgorithms
     public class SelectionSort : SortingBase
     {
         public SelectionSort(IEnumerable<int> numbers) : base(numbers)
-        {
-        }
+        { }
 
-        public override void Sort()
+        public override async void Sort()
         {
             for (int i = 0; i < NumberArray.Count() - 1; i++)
             {
@@ -23,11 +22,11 @@ namespace VisualSorting.SortingAlgorithms
                     {
                         arrayNum = j;
                     }
+                    await Sleep().ConfigureAwait(false);
                 }
                 // Swap
                 NumberArray = Swap.SwapItem(NumberArray, i, arrayNum);
-                RaiseNumbersUpdatedEvent();
-                Sleep();
+                TriggerNumbersUpdatedEvent();
             }
         }
 

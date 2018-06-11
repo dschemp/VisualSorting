@@ -16,12 +16,14 @@ namespace VisualSorting.SortingAlgorithms
 
         public event EventHandler NumbersUpdated;
 
-        protected virtual void RaiseNumbersUpdatedEvent()
+        protected virtual void TriggerNumbersUpdatedEvent()
         {
-            NumbersUpdated(this, new EventArgs());
+            NumbersUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public abstract void Sort();
+
+        public abstract override string ToString();
 
         //protected abstract void SortTask();
         //public void Sort()
@@ -36,18 +38,19 @@ namespace VisualSorting.SortingAlgorithms
             this.NumberArray = numbers;
         }
 
-        public void Sleep(int ms = 200)
+        public async Task Sleep(int ms = 200)
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            while (true)
-            {
-                //some other processing to do STILL POSSIBLE
-                if (stopwatch.ElapsedMilliseconds >= ms)
-                {
-                    break;
-                }
-                Thread.Sleep(1); //so processor can rest for a while
-            }
+            //Stopwatch stopwatch = Stopwatch.StartNew();
+            //while (true)
+            //{
+            //    //some other processing to do STILL POSSIBLE
+            //    if (stopwatch.ElapsedMilliseconds >= ms)
+            //    {
+            //        break;
+            //    }
+            //    Thread.Sleep(1); //so processor can rest for a while
+            //}
+            await Task.Delay(ms).ConfigureAwait(false);
         }
 
         public void SetNumbers(IEnumerable<int> numbers)
