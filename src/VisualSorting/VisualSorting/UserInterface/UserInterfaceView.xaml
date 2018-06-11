@@ -17,7 +17,7 @@
                 <wpf:Axis LabelFormatter="{x:Null}" />
             </wpf:CartesianChart.AxisX>
         </wpf:CartesianChart>
-        <StackPanel Grid.Column="1" IsEnabled="{Binding Working}">
+        <StackPanel Grid.Column="1" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0"/>
             <GroupBox Margin="5" Header="Zahlen" Foreground="White">
                 <StackPanel Orientation="Vertical">

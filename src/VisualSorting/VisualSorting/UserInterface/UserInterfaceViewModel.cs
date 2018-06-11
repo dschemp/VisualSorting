@@ -15,6 +15,7 @@ namespace VisualSorting.UserInterface
 {
     public class UserInterfaceViewModel : ViewModelBase
     {
+        public Thread ThisThread;
         public SeriesCollection SeriesCollection { get; set; }
 
         public IEnumerable<int> Numbers { get; set; }
@@ -43,6 +44,8 @@ namespace VisualSorting.UserInterface
 
         public UserInterfaceViewModel()
         {
+            ThisThread = Dispatcher.CurrentDispatcher.Thread;
+
             FuncRandomNumbers = _ => random.Next(1, 51);
             FuncAscNumbers = x => x;
             FuncDescNumbers = x => 31 - x;
@@ -106,10 +109,16 @@ namespace VisualSorting.UserInterface
 
         private void UpdateGraph(IEnumerable<int> numbers)
         {
-            SeriesCollection[0].Values = new ChartValues<int>();
-            foreach (int i in numbers)
-                SeriesCollection[0].Values.Add(i);
-            this.Numbers = numbers;
+            Dispatcher.FromThread(ThisThread).Invoke(() =>
+            {
+                SeriesCollection[0].Values = new ChartValues<int>();
+                foreach (int i in numbers)
+                {
+                    SeriesCollection[0].Values.Add(i);
+                }
+                this.Numbers = numbers;
+            });
+
         }
 
         private void GenerateNumbers(Func<int, int> func)

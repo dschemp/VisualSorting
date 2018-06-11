@@ -50,6 +50,7 @@ namespace VisualSorting.SortingAlgorithms
             //    }
             //    Thread.Sleep(1); //so processor can rest for a while
             //}
+
             await Task.Delay(ms).ConfigureAwait(false);
         }
 
