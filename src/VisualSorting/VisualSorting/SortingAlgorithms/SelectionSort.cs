@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VisualSorting.UserInterface;
 
 namespace VisualSorting.SortingAlgorithms
 {
@@ -11,7 +12,7 @@ namespace VisualSorting.SortingAlgorithms
         public SelectionSort(IEnumerable<int> numbers) : base(numbers)
         { }
 
-        public override async void Sort()
+        public override async Task Sort()
         {
             for (int i = 0; i < NumberArray.Count() - 1; i++)
             {
@@ -22,7 +23,7 @@ namespace VisualSorting.SortingAlgorithms
                     {
                         arrayNum = j;
                     }
-                    await Sleep().ConfigureAwait(false);
+                    await Sleep(UserInterfaceViewModel.Delay).ConfigureAwait(false);
                 }
                 // Swap
                 NumberArray = Swap.SwapItem(NumberArray, i, arrayNum);

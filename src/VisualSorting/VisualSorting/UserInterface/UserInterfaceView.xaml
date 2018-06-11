@@ -17,16 +17,74 @@
                 <wpf:Axis LabelFormatter="{x:Null}" />
             </wpf:CartesianChart.AxisX>
         </wpf:CartesianChart>
-        <StackPanel Grid.Column="1" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0"/>
-            <GroupBox Margin="5" Header="Zahlen" Foreground="White">
-                <StackPanel Orientation="Vertical">
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Sortieralgorithmus" Foreground="White" Margin="5" />
+                <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Separator/>
+                <TextBlock Text="Zahlen" Foreground="White" Margin="5" />
+                <StackPanel Orientation="Vertical" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <Button Style="{StaticResource ButtonStyle}" Content="Zufällig" Command="{Binding Randomize}" />
                     <Button Style="{StaticResource ButtonStyle}" Content="Aufsteigend" Command="{Binding RandomizeAsc}" />
                     <Button Style="{StaticResource ButtonStyle}" Content="Absteigend" Command="{Binding RandomizeDesc}" />
                 </StackPanel>
-            </GroupBox>
-            <Button Style="{StaticResource ButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
-        </StackPanel>
+                <Separator/>
+                <TextBlock Text="Delay in ms" Foreground="White" Margin="5" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="55" />
+                    </Grid.ColumnDefinitions>
+                    <Slider x:Name="DelaySlider" 
+                            Grid.Column="0" 
+                            Margin="5" 
+                            Minimum="50" 
+                            Maximum="1000" 
+                            TickFrequency="10" 
+                            IsSnapToTickEnabled="True" 
+                            Interval="10" 
+                            Value="{Binding DelayValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock 
+                        Grid.Column="1"
+                        VerticalAlignment="Center" 
+                        x:Name="DelaySliderValue" 
+                        Foreground="White" 
+                        Margin="5" 
+                        HorizontalAlignment="Right">
+                        <Run Text="{Binding ElementName=DelaySlider, Path=Value}"/> ms
+                    </TextBlock>
+                </Grid>
+                <Separator />
+                <TextBlock Text="Menge" Foreground="White" Margin="5" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="55" />
+                    </Grid.ColumnDefinitions>
+                    <Slider 
+                        x:Name="AmountSlider"
+                        Grid.Column="0"
+                        Margin="5"
+                        Minimum="10"
+                        Maximum="100"
+                        TickFrequency="5" 
+                        IsSnapToTickEnabled="True" 
+                        Interval="5" 
+                        Value="{Binding AmountValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                        IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Grid.Column="1" VerticalAlignment="Center" x:Name="AmountSliderValue" Foreground="White" Margin="5" HorizontalAlignment="Right">
+                        <Run Text="{Binding ElementName=AmountSlider, Path=Value}"/>
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <Button Style="{StaticResource ButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

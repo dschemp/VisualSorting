@@ -15,7 +15,9 @@ namespace VisualSorting.UserInterface
 {
     public class UserInterfaceViewModel : ViewModelBase
     {
+        #region Eigenschaften / Variablen
         public Thread ThisThread;
+
         public SeriesCollection SeriesCollection { get; set; }
 
         public IEnumerable<int> Numbers { get; set; }
@@ -31,6 +33,15 @@ namespace VisualSorting.UserInterface
             set { if (value != working) working = value; OnPropertyChanged(); }
         }
 
+        private int delayValue = 100;
+        public int DelayValue
+        {
+            get { return delayValue; }
+            set { delayValue = value; Delay = value; }
+        }
+        public int AmountValue { get; set; } = 30;
+        public static int Delay { get; set; } = 100;
+
         public ICommand Sort { get; set; }
         public ICommand Randomize { get; set; }
         public ICommand RandomizeAsc { get; set; }
@@ -41,6 +52,7 @@ namespace VisualSorting.UserInterface
         public Func<int, int> FuncRandomNumbers;
         public Func<int, int> FuncAscNumbers;
         public Func<int, int> FuncDescNumbers;
+        #endregion
 
         public UserInterfaceViewModel()
         {
@@ -48,7 +60,7 @@ namespace VisualSorting.UserInterface
 
             FuncRandomNumbers = _ => random.Next(1, 51);
             FuncAscNumbers = x => x;
-            FuncDescNumbers = x => 31 - x;
+            FuncDescNumbers = x => AmountValue - x + 1;
 
             PossibleSortingAlgorithm = new List<SortingBase>()
             {
@@ -85,24 +97,15 @@ namespace VisualSorting.UserInterface
                 SortBy(sorter);
         }
 
-        private void SortBy(SortingBase selectedSorting)
+        private async void SortBy(SortingBase selectedSorting)
         {
             // Set bottom text to timer / text "Sorting..." / border brush
 
             selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
 
             Working = true;
-            selectedSorting.Sort();
+            await selectedSorting.Sort().ConfigureAwait(false);
             Working = false;
-
-            //Task.Factory.StartNew(() =>
-            //{
-            //    selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
-
-            //    Working = true;
-            //    selectedSorting.Sort();
-            //    Working = false;
-            //});
 
             // Set bottom text to end of timer / text "Done." / border brush
         }
@@ -124,7 +127,7 @@ namespace VisualSorting.UserInterface
         private void GenerateNumbers(Func<int, int> func)
         {
             List<int> nums = new List<int>();
-            for (int i = 1; i <= 30; i++)
+            for (int i = 1; i <= AmountValue; i++)
             {
                 nums.Add(func(i));
             }

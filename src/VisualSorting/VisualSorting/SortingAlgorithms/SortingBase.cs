@@ -10,47 +10,29 @@ namespace VisualSorting.SortingAlgorithms
 {
     public abstract class SortingBase
     {
+        #region Eigenschaften / Variablen
         public Tuple<int, int> SelectedItemIndex { get; set; }
         public IEnumerable<int> NumberArray { get; set; }
         public Thread SortThread;
 
         public event EventHandler NumbersUpdated;
 
-        protected virtual void TriggerNumbersUpdatedEvent()
-        {
-            NumbersUpdated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public abstract void Sort();
-
+        public abstract Task Sort();
         public abstract override string ToString();
-
-        //protected abstract void SortTask();
-        //public void Sort()
-        //{
-        //    SortThread = new Thread(Sort);
-        //    SortThread.Start();
-        //    // Task.Factory.StartNew(() => SortTask());
-        //}
+        #endregion
 
         public SortingBase(IEnumerable<int> numbers)
         {
             this.NumberArray = numbers;
         }
 
-        public async Task Sleep(int ms = 200)
+        protected virtual void TriggerNumbersUpdatedEvent()
         {
-            //Stopwatch stopwatch = Stopwatch.StartNew();
-            //while (true)
-            //{
-            //    //some other processing to do STILL POSSIBLE
-            //    if (stopwatch.ElapsedMilliseconds >= ms)
-            //    {
-            //        break;
-            //    }
-            //    Thread.Sleep(1); //so processor can rest for a while
-            //}
+            NumbersUpdated?.Invoke(this, EventArgs.Empty);
+        }
 
+        public async Task Sleep(int ms = 100)
+        {
             await Task.Delay(ms).ConfigureAwait(false);
         }
 
