@@ -12,21 +12,21 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" MinWidth="200" />
         </Grid.ColumnDefinitions>
-        <wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None">
+        <wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True">
             <wpf:CartesianChart.AxisX>
                 <wpf:Axis LabelFormatter="{x:Null}" />
             </wpf:CartesianChart.AxisX>
         </wpf:CartesianChart>
         <StackPanel Grid.Column="1">
             <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0"/>
-            <GroupBox Margin="5" Header="Zahlen">
+            <GroupBox Margin="5" Header="Zahlen" Foreground="White">
                 <StackPanel Orientation="Vertical">
-                    <Button Margin="5" Content="Zufällig" Command="{Binding Randomize}"/>
-                    <Button Margin="5" Content="Aufsteigend" Command="{Binding RandomizeAsc}"/>
-                    <Button Margin="5" Content="Absteigend" Command="{Binding RandomizeDesc}"/>
+                    <Button Style="{StaticResource ButtonStyle}" Content="Zufällig" Command="{Binding Randomize}" />
+                    <Button Style="{StaticResource ButtonStyle}" Content="Aufsteigend" Command="{Binding RandomizeAsc}" />
+                    <Button Style="{StaticResource ButtonStyle}" Content="Absteigend" Command="{Binding RandomizeDesc}" />
                 </StackPanel>
             </GroupBox>
-            <Button Margin="5" Content="Sortieren" Command="{Binding Sort}"/>
+            <Button Style="{StaticResource ButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
         </StackPanel>
     </Grid>
 </UserControl>

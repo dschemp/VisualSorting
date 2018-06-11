@@ -7,9 +7,9 @@
         xmlns:local="clr-namespace:VisualSorting"
         mc:Ignorable="d"
         ShowCaptionIcon="False"
-        Title="VisualSorting" Height="450" Width="800">
+        Title="VisualSorting" Height="600" Width="900">
     <Grid Name="GridUserControlLayout" />
     <modern:ModernWindow.StatusBar>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left">Von Daniel Schemp</TextBlock>
+        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Left"/>
     </modern:ModernWindow.StatusBar>
 </modern:ModernWindow>

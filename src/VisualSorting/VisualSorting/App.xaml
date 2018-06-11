@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ModernChrome;component/Themes/Dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/VisualSorting;component/Stylesheet.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

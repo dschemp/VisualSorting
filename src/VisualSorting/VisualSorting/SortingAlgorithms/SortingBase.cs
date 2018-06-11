@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,22 +21,33 @@ namespace VisualSorting.SortingAlgorithms
             NumbersUpdated(this, new EventArgs());
         }
 
-        protected abstract void SortTask();
-        public void Sort()
-        {
-            SortThread = new Thread(Sort);
-            SortThread.Start();
-            // Task.Factory.StartNew(() => SortTask());
-        }
+        public abstract void Sort();
+
+        //protected abstract void SortTask();
+        //public void Sort()
+        //{
+        //    SortThread = new Thread(Sort);
+        //    SortThread.Start();
+        //    // Task.Factory.StartNew(() => SortTask());
+        //}
 
         public SortingBase(IEnumerable<int> numbers)
         {
             this.NumberArray = numbers;
         }
 
-        public void Sleep(int ms = 100)
+        public void Sleep(int ms = 200)
         {
-            Thread.Sleep(ms);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            while (true)
+            {
+                //some other processing to do STILL POSSIBLE
+                if (stopwatch.ElapsedMilliseconds >= ms)
+                {
+                    break;
+                }
+                Thread.Sleep(1); //so processor can rest for a while
+            }
         }
 
         public void SetNumbers(IEnumerable<int> numbers)
