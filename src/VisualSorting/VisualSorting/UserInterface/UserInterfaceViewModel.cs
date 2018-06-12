@@ -17,7 +17,12 @@ namespace VisualSorting.UserInterface
 
         public SeriesCollection SeriesCollection { get; set; }
 
-        public IEnumerable<int> Numbers { get; set; }
+        private IEnumerable<int> numbers;
+        public IEnumerable<int> Numbers
+        {
+            get { return numbers; }
+            set { if (numbers != value) numbers = value; OnPropertyChanged(); }
+        }
 
         public List<SortingBase> PossibleSortingAlgorithm { get; set; }
 

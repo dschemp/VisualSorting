@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BarGraph\BarGraph.xaml.cs">
+      <DependentUpon>BarGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SortingAlgorithms\BubbleSort.cs" />
     <Compile Include="SortingAlgorithms\InsertionSort.cs" />
     <Compile Include="SortingAlgorithms\SelectionSort.cs" />
@@ -85,6 +88,10 @@
     </Compile>
     <Compile Include="UserInterface\UserInterfaceViewModel.cs" />
     <Compile Include="UserInterface\ViewModelBase.cs" />
+    <Page Include="BarGraph\BarGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Stylesheet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
