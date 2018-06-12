@@ -2,11 +2,7 @@
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using VisualSorting.SortingAlgorithms;
@@ -16,6 +12,7 @@ namespace VisualSorting.UserInterface
     public class UserInterfaceViewModel : ViewModelBase
     {
         #region Eigenschaften / Variablen
+
         public Thread ThisThread;
 
         public SeriesCollection SeriesCollection { get; set; }
@@ -27,10 +24,12 @@ namespace VisualSorting.UserInterface
         public SortingBase SelectedSorting { get; set; }
 
         private bool working;
+
         public bool Working
         {
             get { return !working; }
-            set {
+            set
+            {
                 if (value != working)
                     working = value;
                 Dispatcher.FromThread(ThisThread).Invoke(() =>
@@ -43,11 +42,13 @@ namespace VisualSorting.UserInterface
         }
 
         private int delayValue = 100;
+
         public int DelayValue
         {
             get { return delayValue; }
             set { delayValue = value; Delay = value; }
         }
+
         public int AmountValue { get; set; } = 30;
         public static int Delay { get; set; } = 100;
 
@@ -61,7 +62,8 @@ namespace VisualSorting.UserInterface
         public Func<int, int> FuncRandomNumbers;
         public Func<int, int> FuncAscNumbers;
         public Func<int, int> FuncDescNumbers;
-        #endregion
+
+        #endregion Eigenschaften / Variablen
 
         public UserInterfaceViewModel()
         {

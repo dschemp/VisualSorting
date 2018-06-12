@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -12,18 +9,16 @@ namespace VisualSorting.UserInterface
     public class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         public static ICommand CreateCommand(Action<object> execute, bool async = false)
         {
             return new ApplicationCommand(execute, null, async);
         }
 
-
         public static ICommand CreateCommand(Action<object> execute, Predicate<object> canExecute, bool async = false)
         {
             return new ApplicationCommand(execute, canExecute, async);
         }
-
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -35,7 +30,6 @@ namespace VisualSorting.UserInterface
     {
         private readonly Lazy<RelayCommand> _innerCommand;
 
-
         public ApplicationCommand(Action<object> executeAction, Predicate<object> canExecuteAction = null, bool async = false)
         {
             _innerCommand = canExecuteAction == null ?
@@ -43,25 +37,21 @@ namespace VisualSorting.UserInterface
                 new Lazy<RelayCommand>(() => async ? new RelayAsyncCommand(executeAction, canExecuteAction) : new RelayCommand(executeAction, canExecuteAction));
         }
 
-
         public bool CanExecute(object parameter)
         {
             return _innerCommand.Value.CanExecute(parameter);
         }
-
 
         public void Execute(object parameter)
         {
             _innerCommand.Value.Execute(parameter);
         }
 
-
         public event EventHandler CanExecuteChanged
         {
             add { _innerCommand.Value.CanExecuteChanged += value; }
             remove { _innerCommand.Value.CanExecuteChanged -= value; }
         }
-
 
         public void OnCanExecuteChanged()
         {
@@ -84,8 +74,8 @@ namespace VisualSorting.UserInterface
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException("execute");
-            this.canExecute = canExecute ?? throw new ArgumentNullException("canExecute");
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
         }
 
         public event EventHandler CanExecuteChanged
@@ -160,7 +150,7 @@ namespace VisualSorting.UserInterface
 
         public override Boolean CanExecute(object parameter)
         {
-            return ((base.CanExecute(parameter)) && (!this.isExecuting));
+            return (base.CanExecute(parameter)) && (!this.isExecuting);
         }
 
         public override void Execute(object parameter)
@@ -180,10 +170,7 @@ namespace VisualSorting.UserInterface
                     {
                     }
                 });
-                task.ContinueWith(t =>
-                {
-                    this.OnRunWorkerCompleted(EventArgs.Empty);
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                task.ContinueWith(_ => this.OnRunWorkerCompleted(EventArgs.Empty), TaskScheduler.FromCurrentSynchronizationContext());
             }
             catch (Exception ex)
             {

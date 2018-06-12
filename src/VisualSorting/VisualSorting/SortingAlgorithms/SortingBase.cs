@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,6 +8,7 @@ namespace VisualSorting.SortingAlgorithms
     public abstract class SortingBase
     {
         #region Eigenschaften / Variablen
+
         public Tuple<int, int> SelectedItemIndex { get; set; }
         public IEnumerable<int> NumberArray { get; set; }
         public Thread SortThread;
@@ -18,8 +16,10 @@ namespace VisualSorting.SortingAlgorithms
         public event EventHandler NumbersUpdated;
 
         public abstract Task Sort();
+
         public abstract override string ToString();
-        #endregion
+
+        #endregion Eigenschaften / Variablen
 
         public SortingBase(IEnumerable<int> numbers)
         {
