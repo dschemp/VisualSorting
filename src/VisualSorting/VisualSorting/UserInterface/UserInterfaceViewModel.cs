@@ -30,7 +30,16 @@ namespace VisualSorting.UserInterface
         public bool Working
         {
             get { return !working; }
-            set { if (value != working) working = value; OnPropertyChanged(); }
+            set {
+                if (value != working)
+                    working = value;
+                Dispatcher.FromThread(ThisThread).Invoke(() =>
+                {
+                    MainWindow.Border = (working) ? MainWindow.ORANGE_BRUSH : MainWindow.GREEN_BRUSH;
+                    MainWindow.StatusbarText = (working) ? MainWindow.STATUS_WORKING : MainWindow.STATUS_DONE;
+                });
+                OnPropertyChanged();
+            }
         }
 
         private int delayValue = 100;
@@ -99,15 +108,11 @@ namespace VisualSorting.UserInterface
 
         private async void SortBy(SortingBase selectedSorting)
         {
-            // Set bottom text to timer / text "Sorting..." / border brush
-
             selectedSorting.NumbersUpdated += (s, e) => UpdateGraph(selectedSorting.NumberArray);
 
             Working = true;
             await selectedSorting.Sort().ConfigureAwait(false);
             Working = false;
-
-            // Set bottom text to end of timer / text "Done." / border brush
         }
 
         private void UpdateGraph(IEnumerable<int> numbers)
@@ -119,7 +124,6 @@ namespace VisualSorting.UserInterface
                 SeriesCollection[0].Values = vs;
                 this.Numbers = numbers;
             });
-
         }
 
         private void GenerateNumbers(Func<int, int> func)

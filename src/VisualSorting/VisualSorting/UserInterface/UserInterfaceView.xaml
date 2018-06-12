@@ -25,7 +25,12 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
                 <TextBlock Text="Sortieralgorithmus" Foreground="White" Margin="5" />
-                <ComboBox Margin="5" ItemsSource="{Binding PossibleSortingAlgorithm}" SelectedItem="{Binding SelectedSorting}" SelectedIndex="0" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox 
+                    Margin="5" 
+                    ItemsSource="{Binding PossibleSortingAlgorithm}"
+                    SelectedItem="{Binding SelectedSorting}"
+                    SelectedIndex="0" 
+                    IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Separator/>
                 <TextBlock Text="Zahlen" Foreground="White" Margin="5" />
                 <StackPanel Orientation="Vertical" IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -83,7 +88,11 @@
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <Button Style="{StaticResource ButtonStyle}" Content="Sortieren" Command="{Binding Sort}"/>
+                <Button 
+                    Style="{StaticResource ButtonStyle}" 
+                    Content="Sortieren" 
+                    Command="{Binding Sort}"
+                    IsEnabled="{Binding Working, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
     </Grid>

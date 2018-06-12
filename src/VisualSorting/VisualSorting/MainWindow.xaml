@@ -5,12 +5,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualSorting"
-    xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-    mc:Ignorable="d"
+        xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
         ShowCaptionIcon="False"
+    ResizeMode="CanResize"
         Title="VisualSorting" Height="600" Width="900">
     <Grid Name="GridUserControlLayout"/>
     <modern:ModernWindow.StatusBar>
-        <TextBlock Text="" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <TextBlock x:Name="StatusBarText" VerticalAlignment="Center" HorizontalAlignment="Right"/>
     </modern:ModernWindow.StatusBar>
 </modern:ModernWindow>
