@@ -114,11 +114,9 @@ namespace VisualSorting.UserInterface
         {
             Dispatcher.FromThread(ThisThread).Invoke(() =>
             {
-                SeriesCollection[0].Values = new ChartValues<int>();
-                foreach (int i in numbers)
-                {
-                    SeriesCollection[0].Values.Add(i);
-                }
+                ChartValues<int> vs = new ChartValues<int>();
+                vs.AddRange(numbers);
+                SeriesCollection[0].Values = vs;
                 this.Numbers = numbers;
             });
 
