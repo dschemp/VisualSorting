@@ -29,7 +29,6 @@ namespace VisualSorting.UserInterface
         public SortingBase SelectedSorting { get; set; }
 
         private bool working;
-
         public bool Working
         {
             get { return !working; }
@@ -47,7 +46,6 @@ namespace VisualSorting.UserInterface
         }
 
         private int delayValue = 100;
-
         public int DelayValue
         {
             get { return delayValue; }

@@ -11,7 +11,6 @@ namespace VisualSorting.SortingAlgorithms
 
         public Tuple<int, int> SelectedItemIndex { get; set; }
         public IEnumerable<int> NumberArray { get; set; }
-        public Thread SortThread;
 
         public event EventHandler NumbersUpdated;
 

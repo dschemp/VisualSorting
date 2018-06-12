@@ -6,16 +6,5 @@
              xmlns:local="clr-namespace:VisualSorting.BarGraph"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel x:Name="BarGrid" HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom">
-        <ItemsControl Grid.Column="0" ItemsSource="{Binding ItemsSource}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <Rectangle Height="{Binding}" Width="20" Fill="Gray" Stroke="Red" VerticalAlignment="Stretch"/>
-                        <Rectangle Width="2" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+    <StackPanel x:Name="BarGrid" HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom" />
 </UserControl>

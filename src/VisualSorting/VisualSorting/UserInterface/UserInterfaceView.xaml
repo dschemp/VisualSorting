@@ -14,17 +14,8 @@
             <ColumnDefinition Width="4" />
             <ColumnDefinition Width="Auto" MinWidth="250" />
         </Grid.ColumnDefinitions>
-        <!--<ItemsControl Grid.Column="0" ItemsSource="{Binding Numbers}" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Center">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom">
-                        <Rectangle Height="{Binding}" Width="20" Fill="Gray" Stroke="Red" VerticalAlignment="Stretch"/>
-                        <Rectangle Width="2" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
-        <wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True" IsEnabled="False">
+        <!--<bargraph:BarGraph Grid.Column="0" ItemsSource="{Binding Numbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+        <wpf:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True" IsEnabled="False">
             <wpf:CartesianChart.AxisX>
                 <wpf:Axis LabelFormatter="{x:Null}" />
             </wpf:CartesianChart.AxisX>
