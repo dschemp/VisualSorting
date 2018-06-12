@@ -8,8 +8,7 @@
         xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         ShowCaptionIcon="False"
-    ResizeMode="CanResize"
-        Title="VisualSorting" Height="600" Width="900">
+        Title="Visual Sorting" Height="600" Width="900">
     <Grid Name="GridUserControlLayout"/>
     <modern:ModernWindow.StatusBar>
         <TextBlock x:Name="StatusBarText" VerticalAlignment="Center" HorizontalAlignment="Right"/>
