@@ -72,7 +72,7 @@ namespace VisualSorting.UserInterface
         {
             ThisThread = Dispatcher.CurrentDispatcher.Thread;
 
-            FuncRandomNumbers = _ => random.Next(1, 51);
+            FuncRandomNumbers = _ => random.Next(1, AmountValue + 1);
             FuncAscNumbers = x => x;
             FuncDescNumbers = x => AmountValue - x + 1;
 

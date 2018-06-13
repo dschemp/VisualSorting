@@ -18,7 +18,8 @@
         <ItemsControl Grid.Column="0" ItemsSource="{Binding Numbers}" x:Name="BarGraphItemsControl">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <st:StackPanel MarginBetweenChildren="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Orientation="Horizontal"/>
+                    <!--<st:AutoGrid Columns="*" Orientation="Horizontal" ChildMargin="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>-->
+                    <st:StackPanel MarginBetweenChildren="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Orientation="Horizontal" />
                     <!--<StackPanel x:Name="BarGrid" HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom" />-->
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
@@ -85,11 +86,10 @@
                     <Slider x:Name="DelaySlider" 
                             Grid.Column="0" 
                             Margin="5" 
-                            Minimum="20" 
-                            Maximum="1000" 
-                            TickFrequency="10" 
+                            Minimum="5" 
+                            Maximum="250" 
+                            TickFrequency="5" 
                             IsSnapToTickEnabled="True" 
-                            Interval="10"
                             Value="{Binding DelayValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock 
                         Grid.Column="1"
