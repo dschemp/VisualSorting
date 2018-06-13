@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:VisualSorting.UserInterface"
              xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:bargraph="clr-namespace:VisualSorting.BarGraph"
+             xmlns:visualsorting="clr-namespace:VisualSorting"
+             xmlns:con="clr-namespace:VisualSorting.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10">
@@ -14,12 +16,24 @@
             <ColumnDefinition Width="4" />
             <ColumnDefinition Width="Auto" MinWidth="250" />
         </Grid.ColumnDefinitions>
-        <!--<bargraph:BarGraph Grid.Column="0" ItemsSource="{Binding Numbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
-        <wpf:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True" IsEnabled="False">
+        <!--<bargraph:BarGraph Grid.Column="0" Items="{Binding Numbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+        <ItemsControl Grid.Column="0" ItemsSource="{Binding Numbers}" x:Name="BarGraphItemsControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel x:Name="BarGrid" HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle Height="{Binding}" Width="Auto" Fill="Red" Stroke="Red" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!--<wpf:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True" IsEnabled="False">
             <wpf:CartesianChart.AxisX>
                 <wpf:Axis LabelFormatter="{x:Null}" />
             </wpf:CartesianChart.AxisX>
-        </wpf:CartesianChart>
+        </wpf:CartesianChart>-->
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

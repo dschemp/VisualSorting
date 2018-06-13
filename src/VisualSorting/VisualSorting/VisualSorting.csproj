@@ -75,9 +75,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\BarGraphRectHeightConverter.cs" />
     <Compile Include="BarGraph\BarGraph.xaml.cs">
       <DependentUpon>BarGraph.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\ConverterBase.cs" />
+    <Compile Include="Converter\MultiValueConverterBase.cs" />
+    <Compile Include="Extensions\IEnumerableIntExtension.cs" />
     <Compile Include="SortingAlgorithms\BubbleSort.cs" />
     <Compile Include="SortingAlgorithms\InsertionSort.cs" />
     <Compile Include="SortingAlgorithms\SelectionSort.cs" />

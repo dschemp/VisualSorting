@@ -21,33 +21,34 @@ namespace VisualSorting.BarGraph
     public partial class BarGraph : UserControl
     {
         #region Attributes
-        public IEnumerable<int> ItemsSource
+        public IEnumerable<int> Items
         {
-            get { return (IEnumerable<int>) GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); Draw(); }
+            get { return (IEnumerable<int>) GetValue(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); /*Draw();*/ }
         }
 
-        // Using a DependencyProperty as the backing store for ItemsSource.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.RegisterAttached("ItemsSource", typeof(IEnumerable<int>), typeof(BarGraph), new PropertyMetadata(null));
+        // Using a DependencyProperty as the backing store for Items. This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemsProperty =
+            DependencyProperty.RegisterAttached("Items", typeof(IEnumerable<int>), typeof(BarGraph), new PropertyMetadata(null));
         #endregion
 
         public BarGraph()
         {
+            this.DataContext = this;
             InitializeComponent();
-            Draw();
+            //Draw();
         }
 
         public void Draw()
         {
-            if (ItemsSource == null) return;
+            if (Items == null) return;
 
             int max = 0;
-            int count = ItemsSource.Count();
-            foreach (int i in ItemsSource)
+            int count = Items.Count();
+            foreach (int i in Items)
                 max = (i > max) ? i : max;
 
-            foreach(int i in ItemsSource)
+            foreach(int i in Items)
             {
                 // <Rectangle Height="{Binding}" Width="20" Fill="Gray" Stroke="Red" VerticalAlignment="Stretch"/>
                 Rectangle rect = new Rectangle()
@@ -58,7 +59,7 @@ namespace VisualSorting.BarGraph
                     Stroke = new SolidColorBrush(Color.FromRgb(0x11, 0x11, 0x11)),
                     VerticalAlignment = VerticalAlignment.Bottom
                 };
-                BarGrid.Children.Add(rect);
+                //BarGrid.Children.Add(rect);
             }
         }
     }
