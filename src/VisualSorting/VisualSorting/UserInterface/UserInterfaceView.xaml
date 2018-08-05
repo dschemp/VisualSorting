@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VisualSorting.UserInterface"
-             xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:visualsorting="clr-namespace:VisualSorting"
              xmlns:st="http://schemas.spicytaco.io/"
              mc:Ignorable="d" 
@@ -15,25 +14,7 @@
             <ColumnDefinition Width="4" />
             <ColumnDefinition Width="Auto" MinWidth="250" />
         </Grid.ColumnDefinitions>
-        <ItemsControl Grid.Column="0" ItemsSource="{Binding Numbers}" x:Name="BarGraphItemsControl">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <!--<st:AutoGrid Columns="*" Orientation="Horizontal" ChildMargin="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>-->
-                    <st:StackPanel MarginBetweenChildren="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Orientation="Horizontal" />
-                    <!--<StackPanel x:Name="BarGrid" HorizontalAlignment="Stretch" Orientation="Horizontal" VerticalAlignment="Bottom" />-->
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Rectangle Height="{Binding}" Width="Auto" Fill="Red" Stroke="Red" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        <!--<wpf:CartesianChart Grid.Column="0" Series="{Binding SeriesCollection}" LegendLocation="None" DisableAnimations="True" IsEnabled="False">
-            <wpf:CartesianChart.AxisX>
-                <wpf:Axis LabelFormatter="{x:Null}" />
-            </wpf:CartesianChart.AxisX>
-        </wpf:CartesianChart>-->
+        <local:BarGraph ItemsSource="{Binding Numbers}" Fill="Gray"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

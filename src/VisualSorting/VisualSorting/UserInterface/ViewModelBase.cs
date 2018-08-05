@@ -30,11 +30,16 @@ namespace VisualSorting.UserInterface
     {
         private readonly Lazy<RelayCommand> _innerCommand;
 
-        public ApplicationCommand(Action<object> executeAction, Predicate<object> canExecuteAction = null, bool async = false)
+        public ApplicationCommand(Action<object> executeAction, Predicate<object> canExecuteAction = null,
+            bool async = false)
         {
-            _innerCommand = canExecuteAction == null ?
-                new Lazy<RelayCommand>(() => async ? new RelayAsyncCommand(executeAction) : new RelayCommand(executeAction)) :
-                new Lazy<RelayCommand>(() => async ? new RelayAsyncCommand(executeAction, canExecuteAction) : new RelayCommand(executeAction, canExecuteAction));
+            _innerCommand = canExecuteAction == null
+                ? new Lazy<RelayCommand>(() =>
+                    async ? new RelayAsyncCommand(executeAction) : new RelayCommand(executeAction))
+                : new Lazy<RelayCommand>(() =>
+                    async
+                        ? new RelayAsyncCommand(executeAction, canExecuteAction)
+                        : new RelayCommand(executeAction, canExecuteAction));
         }
 
         public bool CanExecute(object parameter)
@@ -49,8 +54,8 @@ namespace VisualSorting.UserInterface
 
         public event EventHandler CanExecuteChanged
         {
-            add { _innerCommand.Value.CanExecuteChanged += value; }
-            remove { _innerCommand.Value.CanExecuteChanged -= value; }
+            add => _innerCommand.Value.CanExecuteChanged += value;
+            remove => _innerCommand.Value.CanExecuteChanged -= value;
         }
 
         public void OnCanExecuteChanged()
@@ -61,11 +66,8 @@ namespace VisualSorting.UserInterface
 
     public class RelayCommand : ICommand
     {
-        protected Action<object> execute;
-
         private Predicate<object> canExecute;
-
-        private event EventHandler CanExecuteChangedInternal;
+        protected Action<object> execute;
 
         public RelayCommand(Action<object> execute)
             : this(execute, DefaultCanExecute)
@@ -83,40 +85,38 @@ namespace VisualSorting.UserInterface
             add
             {
                 CommandManager.RequerySuggested += value;
-                this.CanExecuteChangedInternal += value;
+                CanExecuteChangedInternal += value;
             }
 
             remove
             {
                 CommandManager.RequerySuggested -= value;
-                this.CanExecuteChangedInternal -= value;
+                CanExecuteChangedInternal -= value;
             }
         }
 
         public virtual bool CanExecute(object parameter)
         {
-            return this.canExecute != null && this.canExecute(parameter);
+            return canExecute != null && canExecute(parameter);
         }
 
         public virtual void Execute(object parameter)
         {
-            this.execute(parameter);
+            execute(parameter);
         }
+
+        private event EventHandler CanExecuteChangedInternal;
 
         public void OnCanExecuteChanged()
         {
-            EventHandler handler = this.CanExecuteChangedInternal;
-            if (handler != null)
-            {
-                //DispatcherHelper.BeginInvokeOnUIThread(() => handler.Invoke(this, EventArgs.Empty));
-                handler.Invoke(this, EventArgs.Empty);
-            }
+            var handler = CanExecuteChangedInternal;
+            if (handler != null) handler.Invoke(this, EventArgs.Empty);
         }
 
         public void Destroy()
         {
-            this.canExecute = _ => false;
-            this.execute = _ => { return; };
+            canExecute = _ => false;
+            execute = _ => { };
         }
 
         private static bool DefaultCanExecute(object parameter)
@@ -127,17 +127,6 @@ namespace VisualSorting.UserInterface
 
     public class RelayAsyncCommand : RelayCommand
     {
-        private bool isExecuting = false;
-
-        public event EventHandler Started;
-
-        public event EventHandler Ended;
-
-        public bool IsExecuting
-        {
-            get { return this.isExecuting; }
-        }
-
         public RelayAsyncCommand(Action<object> execute, Predicate<object> canExecute)
             : base(execute, canExecute)
         {
@@ -148,40 +137,47 @@ namespace VisualSorting.UserInterface
         {
         }
 
-        public override Boolean CanExecute(object parameter)
+        public bool IsExecuting { get; private set; }
+
+        public event EventHandler Started;
+
+        public event EventHandler Ended;
+
+        public override bool CanExecute(object parameter)
         {
-            return (base.CanExecute(parameter)) && (!this.isExecuting);
+            return base.CanExecute(parameter) && !IsExecuting;
         }
 
         public override void Execute(object parameter)
         {
             try
             {
-                this.isExecuting = true;
-                this.Started?.Invoke(this, EventArgs.Empty);
+                IsExecuting = true;
+                Started?.Invoke(this, EventArgs.Empty);
 
-                Task task = Task.Factory.StartNew(() =>
+                var task = Task.Factory.StartNew(() =>
                 {
                     try
                     {
-                        this.execute(parameter);
+                        execute(parameter);
                     }
                     catch (Exception)
                     {
                     }
                 });
-                task.ContinueWith(_ => this.OnRunWorkerCompleted(EventArgs.Empty), TaskScheduler.FromCurrentSynchronizationContext());
+                task.ContinueWith(_ => OnRunWorkerCompleted(EventArgs.Empty),
+                    TaskScheduler.FromCurrentSynchronizationContext());
             }
             catch (Exception ex)
             {
-                this.OnRunWorkerCompleted(new RunWorkerCompletedEventArgs(null, ex, true));
+                OnRunWorkerCompleted(new RunWorkerCompletedEventArgs(null, ex, true));
             }
         }
 
         private void OnRunWorkerCompleted(EventArgs e)
         {
-            this.isExecuting = false;
-            this.Ended?.Invoke(this, e);
+            IsExecuting = false;
+            Ended?.Invoke(this, e);
         }
     }
 }
