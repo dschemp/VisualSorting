@@ -80,8 +80,12 @@ namespace VisualSorting.UserInterface
             get => _numbers;
             set
             {
-                if (_numbers != value) _numbers = value;
-                OnPropertyChanged();
+                if (_numbers != value)
+                {
+                    _numbers = value;
+                    OnPropertyChanged();
+                }
+
             }
         }
 

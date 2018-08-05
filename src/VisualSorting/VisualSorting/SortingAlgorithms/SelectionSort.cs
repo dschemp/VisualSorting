@@ -17,6 +17,7 @@ namespace VisualSorting.SortingAlgorithms
                 int arrayNum = i;
                 for (int j = i + 1; j < NumberArray.Count(); j++)
                 {
+                    SelectedIndices = new[] {j, i};
                     if (NumberArray.ElementAt(j).CompareTo(NumberArray.ElementAt(i)) < 0 && NumberArray.ElementAt(arrayNum).CompareTo(NumberArray.ElementAt(j)) > 0)
                     {
                         arrayNum = j;
@@ -24,9 +25,12 @@ namespace VisualSorting.SortingAlgorithms
                     await Sleep(UserInterfaceViewModel.Delay).ConfigureAwait(false);
                 }
                 // Swap
+                SelectedIndices = new[] {i, arrayNum};
                 NumberArray = Swap.SwapItem(NumberArray, i, arrayNum);
                 TriggerNumbersUpdatedEvent();
             }
+
+            SelectedIndices = null;
         }
 
         public override string ToString()

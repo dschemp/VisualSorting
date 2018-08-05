@@ -18,12 +18,15 @@ namespace VisualSorting.SortingAlgorithms
                 {
                     if (NumberArray.ElementAt(y - 1).CompareTo(NumberArray.ElementAt(y)) > 0)
                     {
+                        SelectedIndices = new[] {y, y - 1};
                         NumberArray = Swap.SwapItem(NumberArray, y, y - 1);
                         TriggerNumbersUpdatedEvent();
                     }
                     await Sleep(UserInterfaceViewModel.Delay).ConfigureAwait(false);
                 }
             }
+
+            SelectedIndices = null;
         }
 
         public override string ToString()

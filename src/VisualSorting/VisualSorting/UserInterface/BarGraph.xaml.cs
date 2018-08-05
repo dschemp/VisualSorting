@@ -32,7 +32,7 @@ namespace VisualSorting.UserInterface
         #region Dependency Properties
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(
-            "ItemsSource", typeof(IEnumerable<int>), typeof(BarGraph), new PropertyMetadata(default(IEnumerable<int>), PropertyChangedCallback_UpdateUi));
+            "ItemsSource", typeof(IEnumerable<int>), typeof(BarGraph), new PropertyMetadata(new int[0], PropertyChangedCallback_UpdateUi));
 
         public static readonly DependencyProperty FillProperty = DependencyProperty.Register(
             "Fill", typeof(Brush), typeof(BarGraph), new PropertyMetadata(Brushes.Black));
