@@ -9,7 +9,7 @@ namespace VisualSorting.SortingAlgorithms
     {
         #region Eigenschaften / Variablen
 
-        public Tuple<int, int> SelectedItemIndex { get; set; }
+        public IEnumerable<int> SelectedIndices { get; set; }
         public IEnumerable<int> NumberArray { get; set; }
 
         public event EventHandler NumbersUpdated;

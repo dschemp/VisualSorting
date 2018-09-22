@@ -19,13 +19,15 @@ namespace VisualSorting.SortingAlgorithms
                 {
                     if (NumberArray.ElementAt(y).CompareTo(NumberArray.ElementAt(y + 1)) > 0)
                     {
-                        SelectedItemIndex = new Tuple<int, int>(y, y + 1);
+                        SelectedIndices = new [] { y, y + 1 };
                         NumberArray = Swap.SwapItem(NumberArray, y, y + 1);
                         TriggerNumbersUpdatedEvent();
                     }
                     await Sleep(UserInterfaceViewModel.Delay).ConfigureAwait(false);
                 }
             }
+
+            SelectedIndices = null;
         }
 
         public override string ToString()
